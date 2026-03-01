@@ -11,18 +11,14 @@
 OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensors(&oneWire);
 
-// ============================
-// Wi-Fi Credentials
-// ============================
-const char* ssid = "Dat’s IPHONE";
-const char* password = "pineapple";
+#pragma once
 
-// ============================
-// Supabase Credentials
-// ============================
-// IMPORTANT: no trailing slash
-const char* supabaseUrl = "https://fmhxjiqadxdlmalscvoc.supabase.co";
-const char* supabaseAnonKey = "sb_publishable_QIs5RteU49_YkZ35JoEfRQ_T2UHVhV_";
+// Wi-Fi
+const char* ssid = WIFI_SSID;
+const char* password = WIFI_PASSWORD;
+
+const char* supabaseUrl = SUPABASE_URL;
+const char* supabaseAnonKey = SUPABASE_ANON;
 
 // Your table name
 const char* tableName = "fan_readings";

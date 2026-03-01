@@ -1,0 +1,5 @@
+firmware/secrets.h
+.streamlit/secrets.toml
+__pycache__/
+*.pyc
+.env
