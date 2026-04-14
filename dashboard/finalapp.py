@@ -8,18 +8,18 @@ import requests
 import streamlit as st
 from supabase import create_client
 
-st.set_page_config(page_title="Smart Fan Energy Watch", layout="wide")
+st.set_page_config(page_title="Weather-Adaptive IoT Energy Monitor", layout="wide")
 
 st.markdown(
     """
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap');
       :root {
-        --bg: #07111f;
-        --card: #091521;
+        --bg: #0d0d0d;
+        --card: #161616;
         --text: #edf2fa;
-        --muted: #8aa4be;
-        --border: #1e3248;
+        --muted: #9ca3af;
+        --border: #2c2c2c;
         --temp: #f59e0b;
         --power: #22d3ee;
         --save: #84cc16;
@@ -29,9 +29,9 @@ st.markdown(
       }
       .stApp {
         background:
-          radial-gradient(1400px 600px at 10% -15%, #0e3a6699, transparent 55%),
-          radial-gradient(1100px 500px at 90% -25%, #0d6e6288, transparent 50%),
-          radial-gradient(800px 400px at 50% 100%, #0a1f3344, transparent 60%),
+          radial-gradient(1400px 600px at 10% -15%, #1a1a1a66, transparent 55%),
+          radial-gradient(1100px 500px at 90% -25%, #22222255, transparent 50%),
+          radial-gradient(800px 400px at 50% 100%, #18181833, transparent 60%),
           var(--bg);
         font-family: var(--font-body);
       }
@@ -51,7 +51,7 @@ st.markdown(
         letter-spacing: -0.01em;
       }
       [data-testid="stMetric"] {
-        background: linear-gradient(160deg, #102238 0%, var(--card) 100%);
+        background: linear-gradient(160deg, #1f1f1f 0%, var(--card) 100%);
         border: 1px solid var(--border);
         border-radius: 14px;
         padding: 6px;
@@ -108,14 +108,14 @@ st.markdown(
       }
       .mode-table td {
         padding: 6px 8px;
-        border-bottom: 1px solid rgba(31,51,71,0.5);
+        border-bottom: 1px solid rgba(50,50,50,0.5);
         color: var(--text);
       }
       .kpi-row-gap-tight {
         margin-top: 6px;
       }
       .kpi-card {
-        background: linear-gradient(160deg, #0d2640 0%, var(--card) 100%);
+        background: linear-gradient(160deg, #202020 0%, var(--card) 100%);
         border: 1px solid var(--border);
         border-left: 3px solid var(--kpi-accent, var(--border));
         border-radius: 12px;
@@ -143,7 +143,7 @@ st.markdown(
         font-weight: 500;
       }
       .kpi-card-secondary {
-        background: linear-gradient(160deg, #0a1c30 0%, var(--card) 100%);
+        background: linear-gradient(160deg, #1a1a1a 0%, var(--card) 100%);
         border: 1px solid var(--border);
         border-left: 3px solid rgba(159,179,200,0.25);
         border-radius: 12px;
@@ -211,7 +211,7 @@ st.markdown(
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
         gap: 10px;
-        background: linear-gradient(135deg, #0c2040 0%, #081628 100%);
+        background: linear-gradient(135deg, #1e1e1e 0%, #111111 100%);
         border: 1px solid var(--border);
         border-radius: 14px;
         padding: 12px 18px;
@@ -332,7 +332,7 @@ st.markdown(
 st.markdown(
     """
     <div class="hero-bar">
-      <h1 class="hero-title">Smart Fan <span>Energy</span> Watch</h1>
+      <h1 class="hero-title">Weather-Adaptive IoT <span>Energy</span> Monitor</h1>
       <div class="live-badge"><div class="live-dot"></div>LIVE</div>
     </div>
     """,
@@ -573,7 +573,7 @@ else:
 
     # --- System status banner ---
     current_mode = str(last.get("fan_mode", "—"))
-    mode_color = {"OFF": "#4b5563", "LOW": "#22c55e", "MEDIUM": "#22d3ee", "HIGH": "#ef4444"}.get(current_mode, "#9fb3c8")
+    mode_color = {"OFF": "#4b5563", "LOW": "#22c55e", "MEDIUM": "#22d3ee", "HIGH": "#ef4444"}.get(current_mode, "#9ca3af")
     outdoor_str = f"{outdoor_now_f:.0f}°F" if outdoor_now_f is not None else "—"
     outdoor_peak_str = f"{outdoor_peak_f:.0f}°F" if outdoor_peak_f is not None else "—"
     st.markdown(
@@ -682,7 +682,7 @@ else:
         tbl_rows = ""
         for _, row in latest50.iloc[::-1].iterrows():
             mode = str(row["fan_mode"])
-            color = MODE_COLORS.get(mode, "#9fb3c8")
+            color = MODE_COLORS.get(mode, "#9ca3af")
             bg = color + "22"
             tbl_rows += (
                 f"<tr>"
@@ -722,15 +722,15 @@ else:
         if total_seconds > 0:
             mode_pct = (mode_seconds / total_seconds * 100.0).round(1)
             labels = mode_pct.index.astype(str).tolist()
-            colors = [MODE_COLORS.get(m, "#9fb3c8") for m in labels]
+            colors = [MODE_COLORS.get(m, "#9ca3af") for m in labels]
 
             donut = go.Figure(go.Pie(
                 labels=labels,
                 values=mode_pct.values,
                 hole=0.6,
-                marker=dict(colors=colors, line=dict(color="#07111f", width=2)),
+                marker=dict(colors=colors, line=dict(color="#0d0d0d", width=2)),
                 textinfo="percent",
-                textfont=dict(size=12, color="#e6edf7"),
+                textfont=dict(size=12, color="#edf2fa"),
                 hovertemplate="%{label}: %{value:.1f}%<extra></extra>",
             ))
             donut.update_layout(
@@ -738,7 +738,7 @@ else:
                 height=300,
                 paper_bgcolor="rgba(0,0,0,0)",
                 plot_bgcolor="rgba(0,0,0,0)",
-                font=dict(color="#dbe7f3"),
+                font=dict(color="#edf2fa"),
                 legend=dict(orientation="v", y=0.5, x=1.0, xanchor="left", yanchor="middle", font=dict(size=11)),
                 showlegend=True,
             )
@@ -746,7 +746,7 @@ else:
 
             rows = ""
             for mode, pct in mode_pct.items():
-                color = MODE_COLORS.get(str(mode), "#9fb3c8")
+                color = MODE_COLORS.get(str(mode), "#9ca3af")
                 bg = color + "22"
                 secs = mode_seconds[mode]
                 rows += (
@@ -774,16 +774,16 @@ else:
         st.markdown(
             """
             <div style='display:flex;gap:12px;padding-left:13px;margin-bottom:2px;flex-wrap:wrap;'>
-              <span style='display:flex;align-items:center;gap:5px;font-size:0.74rem;color:#9fb3c8;'>
+              <span style='display:flex;align-items:center;gap:5px;font-size:0.74rem;color:#9ca3af;'>
                 <span style='width:10px;height:10px;border-radius:2px;background:#4b556322;border:1px solid #4b5563;display:inline-block;'></span>OFF
               </span>
-              <span style='display:flex;align-items:center;gap:5px;font-size:0.74rem;color:#9fb3c8;'>
+              <span style='display:flex;align-items:center;gap:5px;font-size:0.74rem;color:#9ca3af;'>
                 <span style='width:10px;height:10px;border-radius:2px;background:#22c55e22;border:1px solid #22c55e66;display:inline-block;'></span>LOW
               </span>
-              <span style='display:flex;align-items:center;gap:5px;font-size:0.74rem;color:#9fb3c8;'>
+              <span style='display:flex;align-items:center;gap:5px;font-size:0.74rem;color:#9ca3af;'>
                 <span style='width:10px;height:10px;border-radius:2px;background:#22d3ee22;border:1px solid #22d3ee66;display:inline-block;'></span>MEDIUM
               </span>
-              <span style='display:flex;align-items:center;gap:5px;font-size:0.74rem;color:#9fb3c8;'>
+              <span style='display:flex;align-items:center;gap:5px;font-size:0.74rem;color:#9ca3af;'>
                 <span style='width:10px;height:10px;border-radius:2px;background:#ef444422;border:1px solid #ef444466;display:inline-block;'></span>HIGH
               </span>
             </div>
@@ -836,10 +836,10 @@ else:
             height=300,
             paper_bgcolor="rgba(0,0,0,0)",
             plot_bgcolor="rgba(0,0,0,0)",
-            font=dict(color="#dbe7f3"),
+            font=dict(color="#edf2fa"),
             legend=dict(orientation="h", y=1.05, x=0),
-            xaxis=dict(gridcolor="rgba(31,51,71,0.7)", gridwidth=1, zeroline=False),
-            yaxis=dict(gridcolor="rgba(31,51,71,0.7)", gridwidth=1, zeroline=False),
+            xaxis=dict(gridcolor="rgba(60,60,60,0.7)", gridwidth=1, zeroline=False),
+            yaxis=dict(gridcolor="rgba(60,60,60,0.7)", gridwidth=1, zeroline=False),
         )
         st.plotly_chart(temp_fig, use_container_width=True)
 
@@ -866,10 +866,10 @@ else:
             height=300,
             paper_bgcolor="rgba(0,0,0,0)",
             plot_bgcolor="rgba(0,0,0,0)",
-            font=dict(color="#dbe7f3"),
+            font=dict(color="#edf2fa"),
             legend=dict(orientation="h", y=1.05, x=0),
-            xaxis=dict(gridcolor="rgba(31,51,71,0.7)", gridwidth=1, zeroline=False),
-            yaxis=dict(gridcolor="rgba(31,51,71,0.7)", gridwidth=1, zeroline=False),
+            xaxis=dict(gridcolor="rgba(60,60,60,0.7)", gridwidth=1, zeroline=False),
+            yaxis=dict(gridcolor="rgba(60,60,60,0.7)", gridwidth=1, zeroline=False),
         )
         st.plotly_chart(power_fig, use_container_width=True)
 
@@ -912,10 +912,10 @@ else:
         height=300,
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(color="#dbe7f3"),
+        font=dict(color="#edf2fa"),
         legend=dict(orientation="h", y=1.06, x=0),
-        xaxis=dict(gridcolor="rgba(31,51,71,0.7)", gridwidth=1, zeroline=False),
-        yaxis=dict(gridcolor="rgba(31,51,71,0.7)", gridwidth=1, zeroline=False),
+        xaxis=dict(gridcolor="rgba(60,60,60,0.7)", gridwidth=1, zeroline=False),
+        yaxis=dict(gridcolor="rgba(60,60,60,0.7)", gridwidth=1, zeroline=False),
     )
     st.plotly_chart(energy_fig, use_container_width=True)
 
@@ -923,7 +923,7 @@ else:
     st.markdown(
         f"""
         <div style='
-          border-top: 1px solid #1f3347;
+          border-top: 1px solid #2c2c2c;
           margin-top: 18px;
           padding: 10px 2px 4px 2px;
           display: flex;
@@ -933,18 +933,18 @@ else:
           gap: 6px;
         '>
           <div style='display:flex;gap:18px;flex-wrap:wrap;'>
-            <span style='font-size:0.74rem;color:#9fb3c8;'>
-              Device: <span style='color:#e6edf7;font-weight:500;'>{DEVICE_ID.strip() or "all"}</span>
+            <span style='font-size:0.74rem;color:#9ca3af;'>
+              Device: <span style='color:#edf2fa;font-weight:500;'>{DEVICE_ID.strip() or "all"}</span>
             </span>
-            <span style='font-size:0.74rem;color:#9fb3c8;'>
-              Source: <span style='color:#e6edf7;font-weight:500;'>Supabase · fan_readings</span>
+            <span style='font-size:0.74rem;color:#9ca3af;'>
+              Source: <span style='color:#edf2fa;font-weight:500;'>Supabase · fan_readings</span>
             </span>
-            <span style='font-size:0.74rem;color:#9fb3c8;'>
-              Window: <span style='color:#e6edf7;font-weight:500;'>{WINDOW_HOURS}h</span>
+            <span style='font-size:0.74rem;color:#9ca3af;'>
+              Window: <span style='color:#edf2fa;font-weight:500;'>{WINDOW_HOURS}h</span>
             </span>
           </div>
           <div style='font-size:0.74rem;color:#4b5563;'>
-            Last updated: <span style='color:#9fb3c8;'>{last['created_at'].strftime('%Y-%m-%d %H:%M:%S')} PT</span>
+            Last updated: <span style='color:#9ca3af;'>{last['created_at'].strftime('%Y-%m-%d %H:%M:%S')} PT</span>
           </div>
         </div>
         """,

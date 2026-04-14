@@ -30,6 +30,13 @@ This project demonstrates end-to-end IoT architecture, real-time telemetry strea
 - Estimates energy savings and cost impact
 - Displays mode distribution and weather thresholds
 
+### Next.js Website (Project Landing Page)
+- Built with Next.js and Tailwind CSS
+- Introduces the project with a hero section, system overview, and feature highlights
+- Embeds the live Streamlit dashboard via inline frame
+- Sections: Overview, How It Works, Highlights, Dashboard
+- Located in `website/`
+
 ---
 
 ## Weather-Adaptive Logic
@@ -54,6 +61,7 @@ The ESP32 evaluates indoor temperature against these thresholds and determines t
 - Baseline vs adaptive energy comparison
 - Cost and savings estimation
 - Dark-mode interactive dashboard
+- Next.js landing page with embedded live dashboard
 
 ---
 
@@ -62,8 +70,9 @@ The ESP32 evaluates indoor temperature against these thresholds and determines t
 - ESP32 (C++)
 - Supabase (PostgreSQL backend)
 - Streamlit (Python dashboard)
+- Next.js + Tailwind CSS (landing page)
 - Open-Meteo API (weather data)
-- Matplotlib / Seaborn (visualization)
+- Plotly (dashboard visualization)
 
 ---
 

@@ -1,5 +1,6 @@
 firmware/secrets.h
 .streamlit/secrets.toml
+dashboard/.streamlit/secrets.toml
 __pycache__/
 *.pyc
 .env
