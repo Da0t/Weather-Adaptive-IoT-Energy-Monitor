@@ -1,21 +1,27 @@
-import Nav from "@/components/Nav";
-import Hero from "@/components/Hero";
-import HowItWorks from "@/components/HowItWorks";
-import Features from "@/components/Features";
-import TechStack from "@/components/TechStack";
-import DashboardViewer from "@/components/DashboardViewer";
-import Footer from "@/components/Footer";
+import Nav from '@/components/Nav'
+import Hero from '@/components/Hero'
+import ProblemSection from '@/components/ProblemSection'
+import ApproachSection from '@/components/ApproachSection'
+import ArchitectureSection from '@/components/ArchitectureSection'
+import ScopeSection from '@/components/ScopeSection'
+import DashboardSection from '@/components/DashboardSection'
+import FAQSection from '@/components/FAQSection'
+import Footer from '@/components/Footer'
 
-export default function Home() {
+export default function Page() {
   return (
-    <main style={{ minHeight: "100vh" }}>
+    <>
       <Nav />
-      <Hero />
-      <HowItWorks />
-      <Features />
-      <TechStack />
-      <DashboardViewer />
+      <main>
+        <Hero />
+        <ProblemSection />
+        <ApproachSection />
+        <ArchitectureSection />
+        <ScopeSection />
+        <DashboardSection />
+        <FAQSection />
+      </main>
       <Footer />
-    </main>
-  );
+    </>
+  )
 }
